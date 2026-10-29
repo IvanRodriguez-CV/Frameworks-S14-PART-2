@@ -1,0 +1,6 @@
+Django==4.2.30
+Pillow>=11.0
+mysqlclient>=2.2.1
+django-crispy-forms>=2.3
+crispy-tailwind>=1.0.3
+weasyprint>=62.3

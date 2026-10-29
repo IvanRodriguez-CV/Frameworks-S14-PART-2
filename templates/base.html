@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comercial - {% block titulo %}{% endblock %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="min-h-screen bg-gray-200 text-slate-800">
+    <div class="mx-auto w-full max-w-7xl px-4">
+      <header>
+        <nav class="flex items-center gap-x-8 py-2">
+          <a href="{% url 'inicio' %}" class="text-2xl font-bold text-blue-600">
+            Comercial
+          </a>
+          <div class="flex items-center gap-6">
+            <a href="{% url 'list_categoria' %}"
+               class="text-base font-medium text-gray-500 transition-colors hover:text-blue-600 sm:text-lg">
+              Categorías
+            </a>
+            {% if user.is_authenticated and user.rol.nombre == "admin" %}
+              <a href="{% url 'list_producto' %}"
+                 class="text-base font-medium text-gray-500 transition-colors hover:text-blue-600 sm:text-lg">
+                Productos
+              </a>
+            {% endif %}
+          </div>
+          {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" class="ml-auto">
+              {% csrf_token %}
+              <button type="submit"
+                      class="text-base font-medium text-gray-500 transition-colors hover:text-blue-600 sm:text-lg">
+                Cerrar sesión
+              </button>
+            </form>
+          {% else %}
+            <div class="ml-auto flex items-center gap-4">
+              <a href="{% url 'login' %}">Iniciar sesión</a>
+              <a href="{% url 'registrar_usuario' %}">Registro</a>
+            </div>
+          {% endif %}
+        </nav>
+      </header>
+      <main class="w-full py-2 sm:py-4">
+        {% block contenido %} {% endblock contenido %}
+      </main>
+    </div>
+  </body>
+</html>
